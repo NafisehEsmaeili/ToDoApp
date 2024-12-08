@@ -1,0 +1,42 @@
+﻿@model ToDoApp.Models.TaskItem
+
+@{
+    ViewData["Title"] = "Create New Task";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" required />
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" id="Description" name="Description">@Model.Description</textarea>
+    </div>
+    <div class="form-group">
+        <label for="DueDate">Due Date</label>
+        <input type="date" class="form-control" id="DueDate" name="DueDate" value="@Model.DueDate.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select class="form-control" id="CategoryId" name="CategoryId">
+            @foreach (var category in ViewData["CategoryId"] as SelectList)
+            {
+                <option value="@category.Value">@category.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="PriorityId">Priority</label>
+        <select class="form-control" id="PriorityId" name="PriorityId">
+            @foreach (var priority in ViewData["PriorityId"] as SelectList)
+            {
+                <option value="@priority.Value">@priority.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+<a class="btn btn-secondary" href="@Url.Action("Index", "TaskItems")">Back to Task List</a>
