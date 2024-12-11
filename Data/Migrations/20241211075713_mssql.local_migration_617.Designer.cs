@@ -10,8 +10,8 @@ using ToDoApp.Data;
 namespace ToDoApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241208002742_initiall")]
-    partial class initiall
+    [Migration("20241211075713_mssql.local_migration_617")]
+    partial class mssqllocal_migration_617
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,10 +84,6 @@ namespace ToDoApp.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -139,8 +135,6 @@ namespace ToDoApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -274,9 +268,6 @@ namespace ToDoApp.Data.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PriorityId")
                         .HasColumnType("int");
 
@@ -286,7 +277,7 @@ namespace ToDoApp.Data.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -294,16 +285,7 @@ namespace ToDoApp.Data.Migrations
 
                     b.HasIndex("PriorityId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("TaskItems");
-                });
-
-            modelBuilder.Entity("ToDoApp.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,10 +352,6 @@ namespace ToDoApp.Data.Migrations
                         .HasForeignKey("PriorityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ToDoApp.Models.ApplicationUser", "User")
-                        .WithMany("TaskItems")
-                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

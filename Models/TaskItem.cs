@@ -14,17 +14,17 @@ namespace ToDoApp.Models
         [StringLength(500)]
         public string Description { get; set; }
 
-        public bool IsCompleted { get; set; }
+        
 
         public DateTime DueDate { get; set; }
 
         // Foreign key for the category
         public int CategoryId { get; set; }
-        public Category CategoryName { get; set; }
+        public Category Category{ get; set; }
 
         // Foreign key for the priority
         public int PriorityId { get; set; }
-        public Priority PriorityLevel { get; set; }
+        public Priority Priority { get; set; }
 
         // Foreign key for the user
         public string UserId { get; set; }  // Store the user ID

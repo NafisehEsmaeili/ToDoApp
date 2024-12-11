@@ -12,7 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoApp.Data;
+using ToDoApp.Data.Migrations;
 using ToDoApp.Models;
+using static ToDoApp.Data.ApplicationDbContext;
 
 namespace ToDoApp
 {
@@ -55,6 +57,17 @@ namespace ToDoApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+           
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                SeedData.Initialize(scope.ServiceProvider, context);
+            }
+
+            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -71,5 +84,6 @@ namespace ToDoApp
                 endpoints.MapRazorPages();
             });
         }
+
     }
 }

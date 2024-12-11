@@ -1,7 +1,12 @@
-﻿@model IEnumerable<ToDoApp.Models.TaskItemViewModel>
+﻿@model List<ToDoApp.ViewModels.TaskItemViewModel>
 
 <h2>Task List</h2>
-<a class="btn btn-primary" href="@Url.Action("Create", "TaskItems")">Add New Task</a>
+
+<!-- Button to navigate to the Create Task page -->
+<a href="/TaskItems/Create" n("Create", "TaskItem" )" class="btn btn-primary mb-3">
+    Create New Task
+</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -10,7 +15,7 @@
             <th>Due Date</th>
             <th>Category</th>
             <th>Priority</th>
-            <th>Status</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -19,15 +24,10 @@
             <tr>
                 <td>@task.Title</td>
                 <td>@task.Description</td>
-                <td>@task.DueDate.ToString("yyyy-MM-dd")</td>
-                <td>@task.CategoryName</td>
-                <td>@task.PriorityLevel</td>
-                <td>@(task.IsCompleted ? "Completed" : "Pending")</td>
-                <td>
-                    <!-- You can add edit or delete buttons here -->
-                    <a class="btn btn-warning" href="#">Edit</a>
-                    <a class="btn btn-danger" href="#">Delete</a>
-                </td>
+                <td>@task.DueDate.ToShortDateString()</td>
+                <td>@task.Category</td>
+                <td>@task.Priority</td>
+               
             </tr>
         }
     </tbody>

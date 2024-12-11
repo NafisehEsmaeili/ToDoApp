@@ -18,26 +18,39 @@ namespace ToDoApp.Data
         {
         }
         // This method will be used to seed the database
-        public static void SeedData(ApplicationDbContext context)
+        public static class SeedData
         {
-            // Check if the Categories table is empty
-            if (!context.Categories.Any())
+            public static void Initialize(IServiceProvider serviceProvider, ApplicationDbContext context)
             {
-                context.Categories.AddRange(
-                    new Category { Id = 1, Name = "Work" },
-            new Category { Id = 2, Name = "Personal" },
-            new Category { Id = 3, Name = "Urgent" }
-                );
+                // Check if there are any categories already in the database
+                if (!context.Categories.Any())
+                {
+                    context.Categories.AddRange(
+                        new Category { Name = "Work" },
+                        new Category { Name = "Personal" },
+                        new Category { Name = "Shopping" },
+                        new Category { Name = "HouseWork"}
+                    );
+                    context.SaveChanges();
+                }
 
-                // Save changes to the database
-                context.SaveChanges();
+                // Check if there are any priorities already in the database
+                if (!context.Priorities.Any())
+                {
+                    context.Priorities.AddRange(
+                        new Priority { Level = "Low" },
+                        new Priority { Level = "Medium" },
+                        new Priority { Level = "High" }
+                    );
+                    context.SaveChanges();
+                }
             }
         }
 
 
     }
-   
-    
-        
-    
+
+
+
+
 }

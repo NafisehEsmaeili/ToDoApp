@@ -266,9 +266,6 @@ namespace ToDoApp.Data.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PriorityId")
                         .HasColumnType("int");
 

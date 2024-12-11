@@ -25,11 +25,7 @@ namespace ToDoApp
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
 
-                // Apply migrations
-                context.Database.Migrate();
-
-                // Seed data
-                ApplicationDbContext.SeedData(context);
+                
 
             }
 

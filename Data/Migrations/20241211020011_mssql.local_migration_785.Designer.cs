@@ -10,8 +10,8 @@ using ToDoApp.Data;
 namespace ToDoApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241207221828_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241211020011_mssql.local_migration_785")]
+    partial class mssqllocal_migration_785
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -268,9 +268,6 @@ namespace ToDoApp.Data.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PriorityId")
                         .HasColumnType("int");
 
@@ -278,6 +275,9 @@ namespace ToDoApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
